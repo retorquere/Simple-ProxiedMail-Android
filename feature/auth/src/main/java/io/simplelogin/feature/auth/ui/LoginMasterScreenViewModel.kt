@@ -1,15 +1,10 @@
 package io.simplelogin.feature.auth.ui
 
 import android.content.Context
-import android.content.Intent
-import android.webkit.CookieManager
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.simplelogin.core.common.ProtonLoginManager
 import io.simplelogin.core.common.di.AppVersion
 import io.simplelogin.core.common.di.LoadingState
 import io.simplelogin.core.common.di.LoadingStateFlow
@@ -61,7 +56,6 @@ internal class LoginMasterScreenViewModel @Inject constructor(
     private val updateSessionSettings: UpdateSessionSettingsUseCase,
     private val accountSettingsRemoteDatasource: AccountSettingsRemoteDatasource,
     private val baseUrlProvider: BaseUrlProvider,
-    private val protonLoginManager: ProtonLoginManager,
     @AppVersion val appVersion: String,
     observeSessionSettings: ObserveSessionSettingsUseCase
 ) : ViewModel() {
@@ -72,24 +66,6 @@ internal class LoginMasterScreenViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = Constants.DEFAULT_BASE_URL
         )
-
-    init {
-        viewModelScope.launch {
-            protonLoginManager.pendingApiKey.collect { apiKey ->
-                login(ApiKey(value = apiKey))
-            }
-        }
-    }
-
-    fun launchLoginWithProton() {
-        CookieManager.getInstance().removeAllCookies(null)
-        val baseUrl = baseUrlProvider.getBaseUrl()
-        val scheme = context.getString(R.string.simplelogin_scheme)
-        val url = "$baseUrl/auth/proton/login?mode=apikey&action=login&scheme=$scheme&next=/login"
-        val customTabsIntent = CustomTabsIntent.Builder().build()
-        customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        customTabsIntent.launchUrl(context, url.toUri())
-    }
 
     private val _mfaKeyStateFlow = MutableStateFlow<String?>(null)
     val mfaKeyStateFlow: StateFlow<String?> = _mfaKeyStateFlow

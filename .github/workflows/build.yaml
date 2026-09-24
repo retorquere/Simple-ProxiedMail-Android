@@ -42,7 +42,21 @@ jobs:
           cp app/build/outputs/apk/fdroid/release/app-fdroid-release.apk apks/
 
       - name: Upload APKs artifact
+        id: upload_apks
         uses: actions/upload-artifact@v4
         with:
           name: apks
           path: apks/
+
+      - name: Post APK artifact to Telegram
+        env:
+          ARTIFACT_URL: ${{ steps.upload_apks.outputs.artifact-url }}
+          TELEGRAM_BUILD_BOT_TOKEN: ${{ secrets.TELEGRAM_BUILD_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: "7619249744"
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error \
+            --request POST \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=ProxiedMail build succeeded: ${ARTIFACT_URL}" \
+            "https://api.telegram.org/bot${TELEGRAM_BUILD_BOT_TOKEN}/sendMessage"

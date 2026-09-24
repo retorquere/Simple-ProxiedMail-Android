@@ -12,7 +12,6 @@ data class UserInfo(
     @SerializedName("in_trial") val inTrial: Boolean,
     @SerializedName("trial_end_timestamp") val trialEndTimestamp: Double?,
     @SerializedName("max_alias_free_plan") val maxAliasFreePlan: Int,
-    @SerializedName("connected_proton_address") val connectedProtonAddress: String?,
     @SerializedName("can_create_reverse_alias") val canCreateReverseAlias: Boolean
 ) {
     val initial: Char?

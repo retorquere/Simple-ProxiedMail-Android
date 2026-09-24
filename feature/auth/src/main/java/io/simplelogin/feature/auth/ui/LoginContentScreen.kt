@@ -42,17 +42,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.simplelogin.core.designsystem.clickableRippleDisabled
-import io.simplelogin.core.designsystem.theme.ProtonPurple
 import io.simplelogin.core.designsystem.theme.Spacing
 import io.simplelogin.feature.auth.R
-import io.simplelogin.core.designsystem.R as DesignsSystemR
 
 @Composable
 internal fun LoginContentScreen(
     modifier: Modifier,
     appVersion: String,
     onLoginClick: (email: String, password: String) -> Unit,
-    onLoginWithProtonClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onSignInWithApiKeyClick: () -> Unit,
     onForgotPasswordClick: () -> Unit,
@@ -69,7 +66,6 @@ internal fun LoginContentScreen(
         LoginColumn(
             modifier = Modifier.width(280.dp),
             onLoginClick = onLoginClick,
-            onLoginWithProtonClick = onLoginWithProtonClick,
             onSignInWithApiKeyClick = onSignInWithApiKeyClick,
             onForgotPasswordClick = onForgotPasswordClick,
             onSignUpClick = onSignUpClick
@@ -102,7 +98,6 @@ internal fun LoginContentScreen(
 private fun LoginColumn(
     modifier: Modifier,
     onLoginClick: (email: String, password: String) -> Unit,
-    onLoginWithProtonClick: () -> Unit,
     onSignInWithApiKeyClick: () -> Unit,
     onForgotPasswordClick: () -> Unit,
     onSignUpClick: () -> Unit
@@ -141,43 +136,6 @@ private fun LoginColumn(
             text = stringResource(R.string.or),
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-
-        CompositionLocalProvider(
-            LocalRippleConfiguration provides RippleConfiguration(
-                color = ProtonPurple,
-                rippleAlpha = null
-            )
-        ) {
-            OutlinedButton(
-                modifier = Modifier.fillMaxWidth(),
-                border = BorderStroke(1.dp, ProtonPurple),
-                onClick = onLoginWithProtonClick
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Icon(
-                            painter = painterResource(DesignsSystemR.drawable.ic_proton),
-                            tint = Color.Unspecified,
-                            contentDescription = null
-                        )
-
-                        Spacer(modifier = Modifier.fillMaxWidth())
-                    }
-
-                    Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = stringResource(R.string.log_in_with_proton),
-                        textAlign = TextAlign.Center,
-                        color = ProtonPurple
-                    )
-                }
-            }
-        }
 
         AnimatedVisibility(!showMoreOptions) {
             TextButton(

@@ -14,5 +14,6 @@ local.properties
 private.properties
 
 keystore
+/app/simplelogin.keystore
 
 /libs

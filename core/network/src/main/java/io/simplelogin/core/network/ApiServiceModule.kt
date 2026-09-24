@@ -91,7 +91,7 @@ object ApiServiceModule {
     @Singleton
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl("https://app.simplelogin.io")
+            .baseUrl("https://sl-shim.retorquere.workers.dev/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

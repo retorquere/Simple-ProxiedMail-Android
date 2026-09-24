@@ -71,8 +71,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.simplelogin.android.root.AppRoot
 import io.simplelogin.android.root.AppRootViewModel
-import io.simplelogin.core.common.ProtonLinkManager
-import io.simplelogin.core.common.ProtonLoginManager
 import io.simplelogin.core.common.di.LoadingState
 import io.simplelogin.core.common.di.LoadingStateFlow
 import io.simplelogin.core.common.usecase.ObserveDeviceSettingsUseCase
@@ -101,12 +99,6 @@ import io.simplelogin.core.designsystem.R as DesignSystemR
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
     private val appRootViewModel: AppRootViewModel by viewModels()
-
-    @Inject
-    lateinit var protonLoginManager: ProtonLoginManager
-
-    @Inject
-    lateinit var protonLinkManager: ProtonLinkManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -200,25 +192,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
-    }
-
-    /**
-     * Callback for when the Login with Proton process is done.
-     * The Login with Proton will redirect the user to
-     * auth.simplelogin://**/login?apikey=YOUR_API_KEY
-     *
-     * (The intent-filter is registered in AndroidManifest.xml)
-     */
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        when (intent.data?.path) {
-            "/login" -> {
-                val apiKey = intent.data?.getQueryParameter("apikey") ?: return
-                protonLoginManager.pendingApiKey.tryEmit(apiKey)
-            }
-
-            "/link" -> protonLinkManager.linkedEvents.tryEmit(Unit)
         }
     }
 
@@ -446,20 +419,6 @@ private fun Drawer(
         )
 
         Spacer(modifier = Modifier.weight(1f))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                modifier = Modifier.widthIn(max = 180.dp),
-                painter = painterResource(DesignSystemR.drawable.ic_logo_powered_by_proton),
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                contentDescription = null
-            )
-        }
-
-        Spacer(modifier = Modifier.height(Spacing.large))
 
         Text(
             modifier = Modifier.fillMaxWidth(),

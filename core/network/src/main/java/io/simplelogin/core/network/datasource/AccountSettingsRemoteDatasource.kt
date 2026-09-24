@@ -3,7 +3,6 @@ package io.simplelogin.core.network.datasource
 import io.simplelogin.core.model.Result
 import io.simplelogin.core.model.api.ApiError
 import io.simplelogin.core.model.api.ApiKey
-import io.simplelogin.core.model.api.Token
 import io.simplelogin.core.model.api.UpdateUserInfoOption
 import io.simplelogin.core.model.api.UpdateUserSettingsOption
 import io.simplelogin.core.model.api.UsableDomain
@@ -27,8 +26,6 @@ interface AccountSettingsRemoteDatasource {
         option: UpdateUserInfoOption
     ): Result<UserInfo, ApiError>
 
-    suspend fun getTemporaryToken(apiKey: ApiKey): Result<Token, ApiError>
-    suspend fun unlinkProton(apiKey: ApiKey): Result<OkResponse, ApiError>
 }
 
 class AccountSettingsRemoteDatasourceImpl @Inject constructor(private val apiService: ApiService) :
@@ -55,9 +52,4 @@ class AccountSettingsRemoteDatasourceImpl @Inject constructor(private val apiSer
     ): Result<UserInfo, ApiError> =
         safeApiCall { apiService.updateUserInfo(apiKey = apiKey, body = option) }
 
-    override suspend fun getTemporaryToken(apiKey: ApiKey): Result<Token, ApiError> =
-        safeApiCall { apiService.getCookieToken(apiKey = apiKey) }
-
-    override suspend fun unlinkProton(apiKey: ApiKey): Result<OkResponse, ApiError> =
-        safeApiCall { apiService.unlinkProton(apiKey = apiKey) }
 }

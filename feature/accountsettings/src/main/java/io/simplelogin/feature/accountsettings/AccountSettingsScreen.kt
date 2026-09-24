@@ -69,7 +69,6 @@ import io.simplelogin.core.designsystem.ToggleOption
 import io.simplelogin.core.designsystem.clickableRippleDisabled
 import io.simplelogin.core.designsystem.description
 import io.simplelogin.core.designsystem.primaryContentBackground
-import io.simplelogin.core.designsystem.theme.ProtonPurple
 import io.simplelogin.core.designsystem.theme.SlColor
 import io.simplelogin.core.designsystem.theme.Spacing
 import io.simplelogin.core.designsystem.title
@@ -79,7 +78,6 @@ import io.simplelogin.core.model.api.SenderFormat
 import io.simplelogin.core.model.api.UsableDomain
 import io.simplelogin.core.ui.EditTextDialog
 import io.simplelogin.core.ui.UserInfoCard
-import io.simplelogin.core.designsystem.R as DesignSystemR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -97,7 +95,6 @@ fun AccountSettingsScreen(
     val updateError = state.updateError
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
-    var showUnlinkProtonDialog by remember { mutableStateOf(false) }
     var showUsableDomainsDialog by remember { mutableStateOf(false) }
     var showEditUserInfoMenu by remember { mutableStateOf(false) }
     var showEditDisplayNameDialog by remember { mutableStateOf(false) }
@@ -177,8 +174,6 @@ fun AccountSettingsScreen(
                             showEditUserInfoMenu = false
                             viewModel.removeProfilePicture()
                         },
-                        onLinkProton = viewModel::linkProton,
-                        onUnlinkProton = { showUnlinkProtonDialog = true },
                         onUpdateNotification = viewModel::updateNotification,
                         onUpdateRandomMode = viewModel::updateRandomMode,
                         onUpdateRandomAliasSuffix = viewModel::updateRandomAliasSuffix,
@@ -203,31 +198,6 @@ fun AccountSettingsScreen(
             if (fetchError != null) {
                 RetryButton(error = fetchError, onRetry = viewModel::refresh)
             }
-        }
-    }
-
-    if (showUnlinkProtonDialog) {
-        state.settings?.userInfo?.connectedProtonAddress?.let {
-            AlertDialog(
-                onDismissRequest = { showUnlinkProtonDialog = false },
-                title = { Text(text = stringResource(R.string.unlink_proton)) },
-                text = {
-                    Text(text = stringResource(R.string.unlink_proton_description, it))
-                },
-                confirmButton = {
-                    TextButton(onClick = {
-                        showUnlinkProtonDialog = false
-                        viewModel.unlinkProton()
-                    }) {
-                        Text(text = stringResource(R.string.yes_unlink_proton_account))
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { showUnlinkProtonDialog = false }) {
-                        Text(text = stringResource(R.string.cancel))
-                    }
-                }
-            )
         }
     }
 
@@ -266,8 +236,6 @@ private fun LazyListScope.accountSettingsScreenContent(
     onEditDisplayName: () -> Unit,
     onEditProfilePicture: () -> Unit,
     onRemoveProfilePicture: () -> Unit,
-    onLinkProton: () -> Unit,
-    onUnlinkProton: () -> Unit,
     onUpdateNotification: (Boolean) -> Unit,
     onUpdateRandomMode: (RandomMode) -> Unit,
     onUpdateRandomAliasSuffix: (RandomAliasSuffix) -> Unit,
@@ -275,7 +243,6 @@ private fun LazyListScope.accountSettingsScreenContent(
     onUpdateSenderFormat: (SenderFormat) -> Unit,
 ) {
     val userInfo = settings.userInfo
-    val connectedProtonAddress = userInfo.connectedProtonAddress
     val userSettings = settings.userSettings
 
     item {
@@ -326,63 +293,6 @@ private fun LazyListScope.accountSettingsScreenContent(
             )
             SettingsFooter(text = stringResource(R.string.trial_description))
         }
-
-        SettingsSpacer()
-    }
-
-    item {
-        SettingsHeader(text = "Proton")
-
-        Row(
-            modifier = Modifier
-                .primaryContentBackground()
-                .clickable(onClick = {
-                    if (connectedProtonAddress != null) {
-                        onUnlinkProton()
-                    } else {
-                        onLinkProton()
-                    }
-                })
-                .padding(Spacing.regular),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(DesignSystemR.drawable.ic_proton),
-                tint = Color.Unspecified,
-                contentDescription = null
-            )
-
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = Spacing.medium),
-                text = if (connectedProtonAddress != null) {
-                    stringResource(R.string.unlink_proton)
-                } else {
-                    stringResource(R.string.link_with_proton)
-                },
-                color = ProtonPurple
-            )
-        }
-
-        Text(
-            modifier = Modifier
-                .padding(top = Spacing.small)
-                .padding(horizontal = Spacing.regular),
-            text = if (connectedProtonAddress != null) {
-                buildAnnotatedString {
-                    append(stringResource(R.string.already_linked_to_proton))
-                    append(" ")
-                    withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                        append(connectedProtonAddress)
-                    }
-                }
-            } else {
-                AnnotatedString(stringResource(R.string.not_linked_to_proton))
-            },
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.secondary
-        )
 
         SettingsSpacer()
     }

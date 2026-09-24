@@ -11,7 +11,7 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "io.simplelogin.android"
+        applicationId = "com.proxiedmail.simple"
         minSdk = 26
         targetSdk = 37
         versionCode = 1

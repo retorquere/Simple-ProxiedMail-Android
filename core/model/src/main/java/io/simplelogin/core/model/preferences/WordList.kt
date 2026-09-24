@@ -4800,7 +4800,6 @@ internal object WordList {
         "prorate",
         "protector",
         "protegee",
-        "proton",
         "prototype",
         "protozoan",
         "protract",

@@ -36,7 +36,6 @@ fun LoginMasterScreen(modifier: Modifier) = with(hiltViewModel<LoginMasterScreen
                 password = password
             )
         },
-        onLoginWithProtonClick = { launchLoginWithProton() },
         onSettingsClick = { showEditBaseUrlDialog = true },
         onSignInWithApiKeyClick = { showSignInWithApiKeyDialog = true },
         onForgotPasswordClick = { showForgotPasswordDialog = true },

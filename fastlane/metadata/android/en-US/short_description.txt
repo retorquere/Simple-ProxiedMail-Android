@@ -1,1 +1,1 @@
-Protect your email inbox with a secure and open source solution by SimpleLogin
+Protect your email inbox with ProxiedMail, a secure email alias service

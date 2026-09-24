@@ -672,13 +672,13 @@ private val Alias.Companion.sample: Alias
         pgpSupported = false,
         pgpDisabled = false,
         mailboxes = listOf(
-            MailboxLite(id = 0, email = "john.doe@protonmail.com"),
-            MailboxLite(id = 1, email = "jane.doe@pm.me")
+            MailboxLite(id = 0, email = "john.doe@example.com"),
+            MailboxLite(id = 1, email = "jane.doe@example.net")
         ),
         latestActivity = Alias.LatestActivity(
             action = ActivityAction.REPLY,
             contact = Alias.LatestActivity.Contact(
-                email = "eric.norbert@proton.me",
+                email = "eric.norbert@example.org",
                 name = null,
                 reverseAlias = ""
             ),

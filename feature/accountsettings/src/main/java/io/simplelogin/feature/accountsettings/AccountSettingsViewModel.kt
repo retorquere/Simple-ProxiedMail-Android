@@ -1,18 +1,13 @@
 package io.simplelogin.feature.accountsettings
 
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import io.simplelogin.core.common.ProtonLinkManager
 import io.simplelogin.core.common.usecase.UpdateSessionSettingsUseCase
 import io.simplelogin.core.model.Result
 import io.simplelogin.core.model.api.ApiError
@@ -25,7 +20,6 @@ import io.simplelogin.core.model.api.UpdateUserSettingsOption
 import io.simplelogin.core.model.api.UsableDomain
 import io.simplelogin.core.model.api.UserInfo
 import io.simplelogin.core.model.api.UserSettings
-import io.simplelogin.core.network.BaseUrlProvider
 import io.simplelogin.core.network.datasource.AccountSettingsRemoteDatasource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -42,8 +36,6 @@ class AccountSettingsViewModel @AssistedInject constructor(
     @Assisted private val apiKeyValue: String,
     private val updateSessionSettings: UpdateSessionSettingsUseCase,
     private val datasource: AccountSettingsRemoteDatasource,
-    private val baseUrlProvider: BaseUrlProvider,
-    private val protonLinkManager: ProtonLinkManager
 ) : ViewModel() {
 
     @AssistedFactory
@@ -56,15 +48,6 @@ class AccountSettingsViewModel @AssistedInject constructor(
 
     private val _informationStateFlow = MutableStateFlow<String?>(null)
     val informationStateFlow: StateFlow<String?> = _informationStateFlow
-
-    init {
-        viewModelScope.launch {
-            protonLinkManager.linkedEvents.collect {
-                refresh()
-                _informationStateFlow.value = context.getString(R.string.proton_account_linked)
-            }
-        }
-    }
 
     fun refresh() {
         _stateFlow.update { AccountSettingsState.Default }
@@ -169,46 +152,6 @@ class AccountSettingsViewModel @AssistedInject constructor(
 
     fun updateSenderFormat(format: SenderFormat) {
         updateSettings(UpdateUserSettingsOption.SenderFormatOption(format))
-    }
-
-    fun linkProton() {
-        withApiKey { apiKey ->
-            _stateFlow.update { it.copy(isLoading = true) }
-            datasource.getTemporaryToken(apiKey = apiKey)
-                .fold(onSuccess = { token ->
-                    _stateFlow.update { it.copy(isLoading = false) }
-                    val baseUrl = baseUrlProvider.getBaseUrl()
-                    val scheme = context.getString(R.string.simplelogin_scheme)
-                    val nextQuery = "/auth/proton/login?action=link&next=/link&scheme=$scheme"
-                    val nextQueryEncoded = Uri.encode(nextQuery)
-                    val url =
-                        "$baseUrl/auth/api_to_cookie?token=${token.value}&next=$nextQueryEncoded"
-                    val customTabsIntent = CustomTabsIntent.Builder().build()
-                    customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    customTabsIntent.launchUrl(context, url.toUri())
-                }, onFailure = ::handleError)
-        }
-    }
-
-    fun unlinkProton() {
-        withApiKey { apiKey ->
-            _stateFlow.update { it.copy(isLoading = true) }
-            datasource.unlinkProton(apiKey = apiKey)
-                .fold(onSuccess = {
-                    _stateFlow.update {
-                        it.copy(
-                            isLoading = false,
-                            settings = it.settings?.copy(
-                                userInfo = it.settings.userInfo.copy(
-                                    connectedProtonAddress = null
-                                )
-                            )
-                        )
-                    }
-                    _informationStateFlow.value =
-                        context.getString(R.string.proton_account_unlinked)
-                }, onFailure = ::handleError)
-        }
     }
 
     fun clearInformation() {

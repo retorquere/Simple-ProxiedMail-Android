@@ -15,7 +15,6 @@ import io.simplelogin.core.model.api.DeletedAliases
 import io.simplelogin.core.model.api.Mailbox
 import io.simplelogin.core.model.api.Mailboxes
 import io.simplelogin.core.model.api.Stats
-import io.simplelogin.core.model.api.Token
 import io.simplelogin.core.model.api.UpdateAliasOption
 import io.simplelogin.core.model.api.UpdateCustomDomainOption
 import io.simplelogin.core.model.api.UpdateCustomDomainResponse
@@ -86,9 +85,6 @@ interface ApiService {
 
     @PATCH("api/user_info")
     suspend fun updateName(@Body body: UpdateNameBody): Response<UserInfo>
-
-    @DELETE("api/setting/unlink_proton_account")
-    suspend fun unlinkProton(@Header(AUTH_HEADER) apiKey: ApiKey): Response<OkResponse>
 
     // Alias
     @POST("api/v3/alias/custom/new")
@@ -239,18 +235,12 @@ interface ApiService {
         @Body body: PasswordBody
     ): Response<OkResponse>
 
-    @GET("api/user/cookie_token")
-    suspend fun getCookieToken(@Header(AUTH_HEADER) apiKey: ApiKey): Response<Token>
-
     // Settings
     @GET("api/v2/setting/domains")
     suspend fun getUsableDomains(@Header(AUTH_HEADER) apiKey: ApiKey): Response<List<UsableDomain>>
 
     @GET("api/setting")
     suspend fun getUserSettings(@Header(AUTH_HEADER) apiKey: ApiKey): Response<UserSettings>
-
-    @DELETE("api/setting/unlink_proton_account")
-    suspend fun unlinkProtonAccount(@Header(AUTH_HEADER) apiKey: ApiKey): Response<OkResponse>
 
     @PATCH("api/setting")
     suspend fun updateUserSettings(
