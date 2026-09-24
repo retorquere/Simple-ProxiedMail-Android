@@ -8,6 +8,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.simplelogin.core.common.usecase.UpdateSessionSettingsUseCase
 import io.simplelogin.core.model.Result
 import io.simplelogin.core.model.api.ApiError
