@@ -115,6 +115,10 @@ class DeviceSettingsViewModel @Inject constructor(
         updateSettings { it.copy(askForRandomAliasNote = ask) }
     }
 
+    fun updateIgnoreIamRichDomain(ignore: Boolean) {
+        updateSettings { it.copy(ignoreIamRichDomain = ignore) }
+    }
+
     fun updateShowStats(showStats: Boolean) {
         updateSettings { it.copy(showStats = showStats) }
     }

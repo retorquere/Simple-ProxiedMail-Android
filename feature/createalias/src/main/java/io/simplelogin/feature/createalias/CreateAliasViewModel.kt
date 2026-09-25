@@ -66,7 +66,9 @@ class CreateAliasViewModel @AssistedInject constructor(
                 val sortedSuffixes = optionsResult.value.suffixes.sortedWith(
                     compareByDescending<Suffix> { it.isCustom }
                         .thenByDescending { it.isPremium }
-                )
+                ).filterNot { suffix ->
+                    devicePreferences.ignoreIamRichDomain && suffix.value == "iam-rich.net"
+                }
                 val sortedMailboxes = mailboxesResult.value.value.sortedWith(
                     compareByDescending<Mailbox> { it.default }
                         .thenByDescending { it.verified }

@@ -396,6 +396,16 @@ private fun DeviceSettingsContent(
                     title = stringResource(R.string.ask_for_random_alias_note),
                     description = stringResource(R.string.ask_for_random_alias_note_description)
                 )
+
+                HorizontalDivider()
+
+                ToggleOption(
+                    paddingValues = PaddingValues(Spacing.regular),
+                    checked = settings.ignoreIamRichDomain,
+                    onCheckedChange = ::updateIgnoreIamRichDomain,
+                    title = stringResource(R.string.ignore_iam_rich_domain),
+                    description = stringResource(R.string.ignore_iam_rich_domain_description)
+                )
             }
 
             SettingsSpacer()

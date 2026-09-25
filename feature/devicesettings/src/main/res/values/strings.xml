@@ -32,6 +32,8 @@
     <string name="copy_after_creating">Copy email address after creating proxies</string>
     <string name="ask_for_random_alias_note">Random proxy note</string>
     <string name="ask_for_random_alias_note_description">Ask for note before creating random proxies</string>
+    <string name="ignore_iam_rich_domain">Ignore iam-rich.net domain</string>
+    <string name="ignore_iam_rich_domain_description">Hide iam-rich.net when selecting a proxy domain</string>
     <string name="alias_display_and_interaction">Proxy display &amp; interaction</string>
     <string name="contacts">Contacts</string>
     <string name="select_contact_action">Select contact action</string>
