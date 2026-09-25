@@ -25,5 +25,5 @@ When you give away your personal email online, there is a good chance that your 
 <li>Export your data: allows you to change the service provider if someday you decide to leave ProxiedMail.</li>
 </ul>
 
-Terms and conditions: <a href="https://simplelogin.io/terms/">https://simplelogin.io/terms/</a>
-Privacy policy: <a href="https://simplelogin.io/privacy/">https://simplelogin.io/privacy/</a>
+Terms and conditions: <a href="https://proxiedmail.com/en/faq">https://proxiedmail.com/en/faq</a>
+Privacy policy: <a href="https://proxiedmail.com/en/privacy-policy">https://proxiedmail.com/en/privacy-policy</a>

@@ -2,7 +2,7 @@
 
 SimpleLogin is an open source solution to protect your email inbox. This repository contains source code of SimpleLogin Android client.
 
-- Website: [https://simplelogin.io/](https://simplelogin.io/)
+- Website: [https://proxiedmail.com/](https://proxiedmail.com/)
 - Back-end: [https://github.com/simple-login/app](https://github.com/simple-login/app)
 - App Store: [https://apps.apple.com/us/app/simplelogin-anti-spam/id1494359858](https://apps.apple.com/us/app/simplelogin-anti-spam/id1494359858)
 - Play Store: [https://play.google.com/store/apps/details?id=io.simplelogin.android](https://play.google.com/store/apps/details?id=io.simplelogin.android)

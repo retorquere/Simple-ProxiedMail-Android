@@ -671,14 +671,14 @@ private fun DefaultPrefixSelection(
 private val Alias.Companion.sample: Alias
     get() = Alias(
         id = AliasId(value = 0),
-        email = "newsletter@simplelogin.io",
+        email = "alex@proxiedmail.com",
         name = null,
         enabled = true,
         creationTimestamp = Clock.System.now().minus(10.days).epochSeconds.toDouble(),
         blockCount = 56,
         forwardCount = 90,
         replyCount = 15,
-        note = "Tech newsletter",
+        note = "Product updates",
         pgpSupported = false,
         pgpDisabled = false,
         mailboxes = listOf(

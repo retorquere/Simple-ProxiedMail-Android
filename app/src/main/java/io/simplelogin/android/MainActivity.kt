@@ -211,7 +211,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openContactUsPage() {
-        val intent = Intent(Intent.ACTION_VIEW, "https://simplelogin.io/contact/".toUri())
+        val intent = Intent(Intent.ACTION_VIEW, "https://proxiedmail.com/en/answers".toUri())
         startActivity(intent)
     }
 }

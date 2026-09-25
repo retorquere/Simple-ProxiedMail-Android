@@ -103,7 +103,7 @@ fun CustomDomainsScreen(
 
                         Text(
                             text = buildAnnotatedString {
-                                pushLink(LinkAnnotation.Url("https://simplelogin.io/docs/custom-domain/add-domain/"))
+                                pushLink(LinkAnnotation.Url("https://proxiedmail.com/en/custom-domain-email-on-hosting"))
                                 withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                                     append(stringResource(R.string.learn_more))
                                 }

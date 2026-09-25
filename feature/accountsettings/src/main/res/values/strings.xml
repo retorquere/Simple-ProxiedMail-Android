@@ -8,8 +8,6 @@
     <string name="remove_profile_picture">Remove profile picture</string>
     <string name="trial_end_date">Your trial will end at %s</string>
     <string name="trial_description">When you signed up, you have a free 7-day Premium trial. After that your account will automatically be downgraded to the Free plan. During the trial, the only limit is you can\'t create more than 10 proxies.</string>
-    <string name="newsletter">Newsletter</string>
-    <string name="newsletter_description">We will occasionally send you emails with new feature announcements</string>
     <string name="random_aliases">Random proxies</string>
     <string name="random_mode">Random mode</string>
     <string name="random_suffix">Random suffix</string>

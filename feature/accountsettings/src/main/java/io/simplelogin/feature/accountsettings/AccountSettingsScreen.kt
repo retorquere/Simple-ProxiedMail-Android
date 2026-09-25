@@ -298,19 +298,6 @@ private fun LazyListScope.accountSettingsScreenContent(
     }
 
     item {
-        ToggleOption(
-            modifier = Modifier.primaryContentBackground(),
-            paddingValues = PaddingValues(Spacing.regular),
-            checked = userSettings.notification,
-            onCheckedChange = onUpdateNotification,
-            title = stringResource(R.string.newsletter),
-            description = stringResource(R.string.newsletter_description)
-        )
-
-        SettingsSpacer()
-    }
-
-    item {
         SettingsHeader(text = stringResource(R.string.random_aliases))
 
         Column(modifier = Modifier.primaryContentBackground()) {
