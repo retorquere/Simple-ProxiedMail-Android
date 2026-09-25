@@ -163,7 +163,7 @@ fun AliasFilterMode.title(context: Context) =
         AliasFilterMode.ALL -> context.getString(R.string.all_aliases)
         AliasFilterMode.PINNED -> context.getString(R.string.pinned_aliases)
         AliasFilterMode.ENABLED -> context.getString(R.string.active_aliases)
-        AliasFilterMode.DISABLED -> context.getString(R.string.disabled_aliases)
+        AliasFilterMode.DISABLED -> context.getString(R.string.inactive_aliases)
     }
 
 fun AliasFilterMode.noAliasesMessage(context: Context) =
@@ -171,5 +171,5 @@ fun AliasFilterMode.noAliasesMessage(context: Context) =
         AliasFilterMode.ALL -> context.getString(R.string.no_aliases)
         AliasFilterMode.PINNED -> context.getString(R.string.no_pinned_aliases)
         AliasFilterMode.ENABLED -> context.getString(R.string.no_active_aliases)
-        AliasFilterMode.DISABLED -> context.getString(R.string.no_disabled_aliases)
+        AliasFilterMode.DISABLED -> context.getString(R.string.no_inactive_aliases)
     }

@@ -6,9 +6,9 @@
     <string name="generic_error">An error occurred (%s)</string>
     <string name="random_word">Random word</string>
     <string name="random_5_characters">Random 5 characters</string>
-    <string name="no_name_format_description">No Name (i.e. only reverse-alias)</string>
+    <string name="no_name_format_description">No Name (i.e. only reverse-proxy)</string>
     <string name="view_details">View details</string>
-    <string name="copy_alias_address">Copy alias address</string>
+    <string name="copy_alias_address">Copy proxy address</string>
     <string name="view_options">View options</string>
     <string name="bottom_sheet">Bottom sheet</string>
     <string name="drop_down_menu">Drop-down menu</string>
@@ -25,8 +25,8 @@
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="device_default">Device default</string>
-    <string name="copy_reverse_alias_with_display_name">Copy reverse-alias (with display name)</string>
-    <string name="copy_reverse_alias_without_display_name">Copy reverse-alias (without display name)</string>
+    <string name="copy_reverse_alias_with_display_name">Copy reverse-proxy (with display name)</string>
+    <string name="copy_reverse_alias_without_display_name">Copy reverse-proxy (without display name)</string>
     <string name="copy_email_address">Copy email address</string>
     <string name="block_unblock">Block/unblock</string>
     <string name="open_default_email_client">Open default email client</string>
@@ -42,12 +42,12 @@
     <string name="unverified">Unverified</string>
     <string name="retry">Retry</string>
     <string name="default_mailbox">Default</string>
-    <string name="all_aliases">All aliases</string>
-    <string name="pinned_aliases">Pinned aliases</string>
-    <string name="active_aliases">Active aliases</string>
-    <string name="disabled_aliases">Disabled aliases</string>
-    <string name="no_aliases">No aliases</string>
-    <string name="no_pinned_aliases">No pinned aliases</string>
-    <string name="no_active_aliases">No active aliases</string>
-    <string name="no_disabled_aliases">No disabled aliases</string>
+    <string name="all_aliases">All proxies</string>
+    <string name="pinned_aliases">Pinned proxies</string>
+    <string name="active_aliases">Active proxies</string>
+    <string name="inactive_aliases">Inactive proxies</string>
+    <string name="no_aliases">No proxies</string>
+    <string name="no_pinned_aliases">No pinned proxies</string>
+    <string name="no_active_aliases">No active proxies</string>
+    <string name="no_inactive_aliases">No inactive proxies</string>
 </resources>
